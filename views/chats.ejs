@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Whatsapp</title>
+    <style>
+        .chat{
+            background-color: rgb(238, 232, 224);
+            border: 1px solid black;
+            text-align: center;
+            width: 500px;
+            align-items: center;
+            margin: 0 auto;
+        }
+
+        .msg{
+            background-color: beige;
+            font-weight: 600;
+            font-family: sans-serif;
+        }
+        h2{
+            font-weight: 600;
+            font-family: sans-serif;
+            text-align: center;
+            text-transform: uppercase;
+
+        }
+    </style>
+</head>
+<body>
+    <h2>This Is the Chat Which Is Came From the DataBase</h2>
+
+
+    <form action="/chats/new" method="get">
+        <button>New Chat</button>
+       </form>
+
+   <%   for(let chat of chats){%>
+        <div class="chat">
+            <p>From : <%= chat.from  %></p>
+           <div class="msg">
+            <p>Message : <%= chat.msg  %></p>
+           </div>
+            <p>Recived By : <%= chat.to  %></p>
+            <p><%= chat.created_at.toString().split(" ")[4]  %></p>
+            <p><%= chat.created_at.toString().split(" ").slice(0,4).join(" ") %></p>
+            <form action="/chats/<%= chat.id %>/edit" method="get">
+                <button>Edit</button>
+            </form>
+            <br>
+            <form action="/chats/<%= chat._id  %>?_method=DELETE" method="POST">
+                <button>Delete</button>
+            </form>
+            <br>
+        </div>
+   <%  } %>
+
+
+   
+</body>
+</html>
